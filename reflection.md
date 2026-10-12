@@ -1,0 +1,7 @@
+# Reflection
+
+**The most difficult concept.** The hardest idea in this course was concurrency: understanding how two requests that each look correct on their own can break the system when they run at the same time. I could repeat the definition of a transaction, but it only made sense when I traced a double-booking by hand. Two users both read a seat as "available", both write "sold", and nobody notices. I overcame it by writing that timeline step by step, then rewriting the same flow as one atomic update with a condition, and seeing that the database settles the race for me. Adding a unique constraint as a safety net made "let the database enforce the rule" feel concrete instead of abstract.
+
+**What I would improve in my capstone.** Based on the feedback I received, I would improve how my capstone handles failure. I designed the normal path well, but I did not say enough about what happens when a request times out, a user retries, or a service goes down. In TicketHub I used idempotency keys, hold expiry and reconciliation for exactly this reason, so I would go back and apply that thinking: list every failure, decide who retries, and make retries safe.
+
+**What I will learn next.** I want to learn how to run these systems in practice. That means load testing to check whether my estimates are realistic, plus monitoring, alerting and autoscaling. I also want to study sharding and distributed databases, because my TicketHub design relies on a single primary database and I want to understand exactly where that stops working.
